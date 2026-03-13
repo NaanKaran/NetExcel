@@ -1,0 +1,62 @@
+<Project>
+  <PropertyGroup>
+    <!-- Solution-wide defaults applied to all projects -->
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <AnalysisLevel>latest</AnalysisLevel>
+
+    <!-- Deterministic builds for reproducible NuGet packages -->
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+
+    <!-- NuGet common metadata -->
+    <Authors>NetXLCsv Contributors</Authors>
+    <Company>NetXLCsv</Company>
+    <Copyright>Copyright © 2025 NetXLCsv Contributors</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>excel;csv;dataframe;pandas;spreadsheet;openxml</PackageTags>
+    <PackageProjectUrl>https://github.com/netxlcsv/netxlcsv</PackageProjectUrl>
+
+    <!-- Symbol packages for better debugging experience -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <!--
+      Suppressed warnings (solution-wide):
+        CS1591 – Missing XML doc comment on public member.
+                 Intentionally deferred; all public APIs have <inheritdoc/> wired via interfaces.
+        CS8714 – Nullable type argument doesn't satisfy 'notnull' constraint.
+                 GroupBy uses object? keys intentionally (null is a valid group key).
+        CS8621 – Nullability mismatch in lambda return type.
+                 Companion to CS8714 for the same GroupBy projection.
+    -->
+    <NoWarn>$(NoWarn);CS1591;CS8714;CS8621</NoWarn>
+  </PropertyGroup>
+
+  <!--
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║  SECURITY: Transitive dependency version overrides                  ║
+    ║                                                                      ║
+    ║  DocumentFormat.OpenXml pulls in System.IO.Packaging 8.0.0 which   ║
+    ║  has CVE-2024-38095 (DoS via malformed ZIP). We force the patched   ║
+    ║  version here so every project in the solution gets the safe build. ║
+    ║                                                                      ║
+    ║  NOTE: System.Text.Json is part of the .NET 10 BCL — no explicit   ║
+    ║  reference is required; the runtime ships the patched version.      ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+  -->
+  <ItemGroup>
+    <!--
+      Force System.IO.Packaging to 9.0.0 (patched — CVE-2024-38095).
+      Applied unconditionally so test / benchmark projects are also covered.
+      No Condition needed — NuGet deduplicates identical version pins.
+    -->
+    <PackageReference Include="System.IO.Packaging" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

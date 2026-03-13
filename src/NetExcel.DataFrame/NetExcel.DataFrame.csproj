@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+
+    <AssemblyName>NetXLCsv.DataFrame</AssemblyName>
+    <RootNamespace>NetXLCsv.DataFrame</RootNamespace>
+    <PackageId>NetXLCsv.DataFrame</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>NetXLCsv Contributors</Authors>
+    <Description>Pandas-like DataFrame API for .NET — filter, select, group, sort, and export tabular data with a fluent interface.</Description>
+    <PackageTags>dataframe;pandas;excel;csv;netxlcsv</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Only NetXLCsv.Core is needed at compile time.
+      NetXLCsv.Excel and NetXLCsv.Csv are resolved at runtime via Type.GetType()
+      in ExcelWriterResolver / CsvWriterResolver (late binding).
+      This eliminates the circular reference: Csv → Core → DataFrame → Csv.
+    -->
+    <ProjectReference Include="..\NetExcel.Core\NetExcel.Core.csproj" />
+  </ItemGroup>
+
+</Project>

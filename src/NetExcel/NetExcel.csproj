@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>NetXLCsv</PackageId>
+    <AssemblyName>NetXLCsv</AssemblyName>
+    <Description>
+      reference from pandas + openpyxl for .NET — high-performance DataFrame, Excel (.xlsx) read/write,
+      CSV parsing, conditional formatting, and SAX-based streaming for 1M+ rows.
+      One package, everything included.
+    </Description>
+    <PackageTags>excel;csv;dataframe;pandas;openpyxl;spreadsheet;openxml;streaming</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!--
+      This is a meta / umbrella package.
+      It contains no source of its own — it simply pulls in all NetXLCsv sub-packages
+      so consumers only need: dotnet add package NetXLCsv
+    -->
+    <IsPackable>true</IsPackable>
+
+    <!--
+      Prevent MSBuild from complaining that there are no .cs files to compile.
+      The package value comes entirely from its ProjectReferences.
+    -->
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+  </PropertyGroup>
+
+  <!-- Include the repo README in the NuGet package -->
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Condition="Exists('..\..\README.md')" />
+  </ItemGroup>
+
+  <!--
+    All six sub-packages become NuGet dependencies of NetXLCsv.
+    When a consumer installs NetXLCsv they automatically get all of them.
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\NetExcel.Core\NetExcel.Core.csproj" />
+    <ProjectReference Include="..\NetExcel.DataFrame\NetExcel.DataFrame.csproj" />
+    <ProjectReference Include="..\NetExcel.Excel\NetExcel.Excel.csproj" />
+    <ProjectReference Include="..\NetExcel.Csv\NetExcel.Csv.csproj" />
+    <ProjectReference Include="..\NetExcel.Streaming\NetExcel.Streaming.csproj" />
+    <ProjectReference Include="..\NetExcel.Formatting\NetExcel.Formatting.csproj" />
+  </ItemGroup>
+
+</Project>

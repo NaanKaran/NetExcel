@@ -1,0 +1,6 @@
+# Requires .NET 10 SDK
+cd NetExcel
+dotnet restore
+dotnet build -c Release
+dotnet test tests/NetExcel.Tests
+dotnet run --project samples/NetExcel.Sample

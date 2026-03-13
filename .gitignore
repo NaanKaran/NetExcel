@@ -1,0 +1,26 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.vscode/
+
+## NuGet packages
+nupkgs/
+*.nupkg
+*.snupkg
+
+## Test results
+TestResults/
+coverage/
+
+## Benchmark results
+BenchmarkDotNet.Artifacts/
+
+## Sample output
+samples/*/output/
+
+## OS
+.DS_Store
+Thumbs.db

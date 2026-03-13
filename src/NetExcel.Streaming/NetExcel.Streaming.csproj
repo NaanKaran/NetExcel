@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+
+    <AssemblyName>NetXLCsv.Streaming</AssemblyName>
+    <RootNamespace>NetXLCsv.Streaming</RootNamespace>
+    <PackageId>NetXLCsv.Streaming</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>NetXLCsv Contributors</Authors>
+    <Description>Streaming Excel and CSV writers for .NET — write 1M+ rows with minimal memory allocations using SAX-style OpenXML.</Description>
+    <PackageTags>excel;csv;streaming;performance;netxlcsv</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetExcel.Core\NetExcel.Core.csproj" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
+    <!-- System.IO.Packaging 9.0.0 pinned globally in Directory.Build.props (CVE-2024-38095) -->
+  </ItemGroup>
+
+</Project>

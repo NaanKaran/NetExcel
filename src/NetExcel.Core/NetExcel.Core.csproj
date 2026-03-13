@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>13</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+
+    <!-- NuGet Metadata -->
+    <AssemblyName>NetXLCsv.Core</AssemblyName>
+    <RootNamespace>NetXLCsv.Core</RootNamespace>
+    <PackageId>NetXLCsv.Core</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>NetXLCsv Contributors</Authors>
+    <Description>Core abstractions, interfaces, and shared models for the NetXLCsv library — the pandas + openpyxl for .NET.</Description>
+    <PackageTags>excel;csv;dataframe;spreadsheet;netxlcsv</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>
