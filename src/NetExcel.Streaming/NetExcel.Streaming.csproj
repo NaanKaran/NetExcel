@@ -9,14 +9,13 @@
     <Optimize>true</Optimize>
 
     <AssemblyName>NetXLCsv.Streaming</AssemblyName>
-    <RootNamespace>NetXLCsv.Streaming</RootNamespace>
     <PackageId>NetXLCsv.Streaming</PackageId>
     <Version>1.0.0</Version>
     <Authors>NetXLCsv Contributors</Authors>
     <Description>Streaming Excel and CSV writers for .NET — write 1M+ rows with minimal memory allocations using SAX-style OpenXML.</Description>
     <PackageTags>excel;csv;streaming;performance;netxlcsv</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <RepositoryUrl>https://github.com/naankaran/NetExcel</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

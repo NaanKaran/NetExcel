@@ -9,14 +9,13 @@
     <Optimize>true</Optimize>
 
     <AssemblyName>NetXLCsv.Csv</AssemblyName>
-    <RootNamespace>NetXLCsv.Csv</RootNamespace>
     <PackageId>NetXLCsv.Csv</PackageId>
     <Version>1.0.0</Version>
     <Authors>NetXLCsv Contributors</Authors>
     <Description>Fast CSV reading and writing for .NET with streaming support, type inference, and DataFrame integration.</Description>
     <PackageTags>csv;dataframe;netxlcsv</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <RepositoryUrl>https://github.com/naankaran/NetExcel</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

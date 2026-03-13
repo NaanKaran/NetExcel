@@ -8,14 +8,13 @@
     <Optimize>true</Optimize>
 
     <AssemblyName>NetXLCsv.Formatting</AssemblyName>
-    <RootNamespace>NetXLCsv.Formatting</RootNamespace>
     <PackageId>NetXLCsv.Formatting</PackageId>
     <Version>1.0.0</Version>
     <Authors>NetXLCsv Contributors</Authors>
     <Description>Excel cell styling, fonts, number formats, column widths and conditional formatting for NetXLCsv.</Description>
     <PackageTags>excel;formatting;styling;netxlcsv</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <RepositoryUrl>https://github.com/naankaran/NetExcel</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

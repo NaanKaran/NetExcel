@@ -8,14 +8,13 @@
     <Optimize>true</Optimize>
 
     <AssemblyName>NetXLCsv.Excel</AssemblyName>
-    <RootNamespace>NetXLCsv.Excel</RootNamespace>
     <PackageId>NetXLCsv.Excel</PackageId>
     <Version>1.0.0</Version>
     <Authors>NetXLCsv Contributors</Authors>
     <Description>High-performance Excel (.xlsx) engine for .NET — create, read, and write workbooks with a clean openpyxl-inspired API.</Description>
     <PackageTags>excel;xlsx;openxml;netxlcsv</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/netxlcsv/netxlcsv</RepositoryUrl>
+    <RepositoryUrl>https://github.com/naankaran/NetExcel</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

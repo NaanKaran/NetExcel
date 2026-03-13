@@ -55,20 +55,36 @@ All 54 tests must pass. Never publish a failing build.
 
 ## Step 4 — Pack All Packages
 
-```bash
+```powershell
 # Create output folder
-mkdir nupkgs
+md nupkgs -Force
 
 # Pack sub-packages first (umbrella depends on them)
-dotnet pack src/NetExcel.Core       -c Release --no-build -o ./nupkgs
-dotnet pack src/NetExcel.DataFrame  -c Release --no-build -o ./nupkgs
-dotnet pack src/NetExcel.Excel      -c Release --no-build -o ./nupkgs
-dotnet pack src/NetExcel.Csv        -c Release --no-build -o ./nupkgs
-dotnet pack src/NetExcel.Streaming  -c Release --no-build -o ./nupkgs
-dotnet pack src/NetExcel.Formatting -c Release --no-build -o ./nupkgs
+# IMPORTANT: Windows shell does NOT expand wildcards — list each project explicitly
+dotnet pack src\NetExcel.Core       -c Release --no-build -o .\nupkgs
+dotnet pack src\NetExcel.DataFrame  -c Release --no-build -o .\nupkgs
+dotnet pack src\NetExcel.Excel      -c Release --no-build -o .\nupkgs
+dotnet pack src\NetExcel.Csv        -c Release --no-build -o .\nupkgs
+dotnet pack src\NetExcel.Streaming  -c Release --no-build -o .\nupkgs
+dotnet pack src\NetExcel.Formatting -c Release --no-build -o .\nupkgs
 
 # Pack the umbrella meta-package last
-dotnet pack src/NetExcel           -c Release --no-build -o ./nupkgs
+dotnet pack src\NetExcel            -c Release --no-build -o .\nupkgs
+```
+
+Or use a single PowerShell loop:
+
+```powershell
+md nupkgs -Force
+@(
+  "src\NetExcel.Core",
+  "src\NetExcel.DataFrame",
+  "src\NetExcel.Excel",
+  "src\NetExcel.Csv",
+  "src\NetExcel.Streaming",
+  "src\NetExcel.Formatting",
+  "src\NetExcel"
+) | ForEach-Object { dotnet pack $_ -c Release --no-build -o .\nupkgs }
 ```
 
 This produces `.nupkg` and `.snupkg` (symbols) files in `./nupkgs/`:
