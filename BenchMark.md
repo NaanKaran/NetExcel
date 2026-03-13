@@ -1,6 +1,6 @@
-# NetExcel
+# NetXLCsv — Benchmarks
 
-**NetExcel** is a high-performance .NET library for generating Excel (`.xlsx`) files with a focus on **streaming writes, low overhead, and scalability for large datasets**.
+**NetXLCsv** is a high-performance .NET library for generating Excel (`.xlsx`) and CSV files with a focus on **streaming writes, low overhead, and scalability for large datasets**.
 
 It is designed as a lightweight alternative to traditional Excel libraries while supporting **large dataset exports efficiently**.
 
@@ -8,9 +8,9 @@ It is designed as a lightweight alternative to traditional Excel libraries while
 
 # ✨ Features
 
-* 🚀 High-performance Excel generation
+* 🚀 High-performance Excel and CSV generation
 * 📦 Lightweight and dependency-minimal
-* 🧵 Streaming writer for large datasets
+* 🧵 Streaming writer for large datasets (1M+ rows)
 * ⚡ Optimized for large row counts
 * 🧪 Fully benchmarked using BenchmarkDotNet
 * 🧩 Designed for .NET 10+
@@ -19,7 +19,7 @@ It is designed as a lightweight alternative to traditional Excel libraries while
 
 # 📊 Performance Benchmarks
 
-Benchmarks were executed using **BenchmarkDotNet** comparing **NetExcel** against **EPPlus** for Excel file generation.
+Benchmarks were executed using **BenchmarkDotNet** comparing **NetXLCsv** against **EPPlus** for Excel file generation.
 
 Environment:
 
@@ -42,12 +42,12 @@ Test scenario:
 
 # ⚡ Benchmark Results
 
-| Method                   | Rows | Mean Time  | Memory Allocated |
-| ------------------------ | ---- | ---------- | ---------------- |
-| NetExcel StreamingWriter | 100K | **471 ms** | 396 MB           |
-| EPPlus                   | 100K | 663 ms     | 333 MB           |
-| NetExcel StreamingWriter | 1M   | **6.99 s** | 3814 MB          |
-| EPPlus                   | 1M   | 7.65 s     | 3139 MB          |
+| Method                    | Rows | Mean Time  | Memory Allocated |
+| ------------------------- | ---- | ---------- | ---------------- |
+| NetXLCsv StreamingWriter  | 100K | **471 ms** | 396 MB           |
+| EPPlus                    | 100K | 663 ms     | 333 MB           |
+| NetXLCsv StreamingWriter  | 1M   | **6.99 s** | 3814 MB          |
+| EPPlus                    | 1M   | 7.65 s     | 3139 MB          |
 
 ---
 
@@ -55,29 +55,29 @@ Test scenario:
 
 ## 100K Rows
 
-| Library      | Time       |
-| ------------ | ---------- |
-| **NetExcel** | **471 ms** |
-| EPPlus       | 663 ms     |
+| Library       | Time       |
+| ------------- | ---------- |
+| **NetXLCsv**  | **471 ms** |
+| EPPlus        | 663 ms     |
 
-NetExcel is approximately **29% faster** than EPPlus when generating Excel files with 100,000 rows.
+NetXLCsv is approximately **29% faster** than EPPlus when generating Excel files with 100,000 rows.
 
 ---
 
 ## 1 Million Rows
 
-| Library      | Time       |
-| ------------ | ---------- |
-| **NetExcel** | **6.99 s** |
-| EPPlus       | 7.65 s     |
+| Library       | Time       |
+| ------------- | ---------- |
+| **NetXLCsv**  | **6.99 s** |
+| EPPlus        | 7.65 s     |
 
-NetExcel is approximately **9% faster** than EPPlus for large datasets.
+NetXLCsv is approximately **9% faster** than EPPlus for large datasets.
 
 ---
 
 # 📈 Summary
 
-NetExcel demonstrates strong performance improvements compared to EPPlus:
+NetXLCsv demonstrates strong performance improvements compared to EPPlus:
 
 * ⚡ **29% faster** for medium datasets (100K rows)
 * ⚡ **~9% faster** for large datasets (1M rows)
@@ -118,16 +118,16 @@ BenchmarkDotNet.Artifacts/results/
 
 Generated files:
 
-* `NetExcel.Benchmarks.ExcelWriteBenchmarks-report.html`
-* `NetExcel.Benchmarks.ExcelWriteBenchmarks-report.csv`
-* `NetExcel.Benchmarks.ExcelWriteBenchmarks-report-github.md`
+* `NetXLCsv.Benchmarks.ExcelWriteBenchmarks-report.html`
+* `NetXLCsv.Benchmarks.ExcelWriteBenchmarks-report.csv`
+* `NetXLCsv.Benchmarks.ExcelWriteBenchmarks-report-github.md`
 
 ---
 
 # 📦 Installation
 
 ```bash
-dotnet add package NetExcel
+dotnet add package NetXLCsv
 ```
 
 ---
@@ -135,19 +135,27 @@ dotnet add package NetExcel
 # 🧑‍💻 Example Usage
 
 ```csharp
-using NetExcel;
+using NetXLCsv.Streaming;
 
-using var writer = new ExcelStreamingWriter("output.xlsx");
+using var writer = StreamingExcelWriter.Create("output.xlsx");
 
-for (int i = 0; i < 100000; i++)
+writer.WriteHeader("Id", "Name", "Timestamp");
+
+for (int i = 0; i < 100_000; i++)
 {
-    writer.WriteRow(new object[]
-    {
-        i,
-        $"User {i}",
-        DateTime.UtcNow
-    });
+    writer.WriteRow(i, $"User {i}", DateTime.UtcNow);
 }
+
+Console.WriteLine($"Written: {writer.RowsWritten} rows");
+```
+
+---
+
+# 🚀 Running Benchmarks
+
+```bash
+cd benchmarks/NetXLCsv.Benchmarks
+dotnet run -c Release
 ```
 
 ---
@@ -156,10 +164,10 @@ for (int i = 0; i < 100000; i++)
 
 Planned improvements:
 
-* Column formatting
-* Worksheet management
 * Async streaming support
 * Lower memory allocation
+* Additional conditional formatting rules
+* Chart generation API
 * Additional performance optimizations
 
 ---

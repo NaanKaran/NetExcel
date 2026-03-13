@@ -1,39 +1,46 @@
-# NetExcel
+# NetXLCsv
 
 > **The pandas + openpyxl for .NET** — a modern, high-performance library for tabular data manipulation and Excel/CSV I/O.
 
 [![.NET 10](https://img.shields.io/badge/.NET-10.0-blueviolet)](https://dotnet.microsoft.com)
 [![C# 13](https://img.shields.io/badge/C%23-13-blue)](https://learn.microsoft.com/en-us/dotnet/csharp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![NuGet](https://img.shields.io/badge/NuGet-1.0.0-orange)](https://www.nuget.org/packages/NetExcel.DataFrame)
+[![NuGet](https://img.shields.io/badge/NuGet-1.0.0-orange)](https://www.nuget.org/packages/NetXLCsv)
 
 ---
 
 ## Overview
 
-NetExcel is a modular, production-quality .NET 10 library that brings a **fluent pandas-like DataFrame API** together with a clean **openpyxl-inspired Excel engine** — all built on Microsoft's official OpenXML SDK, with zero heavyweight dependencies.
+NetXLCsv is a modular, production-quality .NET 10 library that brings a **fluent pandas-like DataFrame API** together with a clean **openpyxl-inspired Excel engine** — all built on Microsoft's official OpenXML SDK, with zero heavyweight dependencies.
 
 | Module | Responsibility |
 |---|---|
-| `NetExcel.Core` | Shared interfaces, models, schema, utilities |
-| `NetExcel.DataFrame` | Fluent DataFrame API (filter, select, sort, group) |
-| `NetExcel.Excel` | Excel workbook/worksheet engine (read + write) |
-| `NetExcel.Csv` | RFC-4180 CSV reader and writer |
-| `NetExcel.Streaming` | Streaming 1M+ row writers (SAX-based) |
-| `NetExcel.Formatting` | Cell styles, fonts, borders, conditional formatting |
+| `NetXLCsv.Core` | Shared interfaces, models, schema, utilities |
+| `NetXLCsv.DataFrame` | Fluent DataFrame API (filter, select, sort, group) |
+| `NetXLCsv.Excel` | Excel workbook/worksheet engine (read + write) |
+| `NetXLCsv.Csv` | RFC-4180 CSV reader and writer |
+| `NetXLCsv.Streaming` | Streaming 1M+ row writers (SAX-based) |
+| `NetXLCsv.Formatting` | Cell styles, fonts, borders, conditional formatting |
 
 ---
 
 ## Installation
 
-Install only what you need:
+Install everything with a single package:
 
 ```bash
-dotnet add package NetExcel.DataFrame
-dotnet add package NetExcel.Excel
-dotnet add package NetExcel.Csv
-dotnet add package NetExcel.Streaming
-dotnet add package NetExcel.Formatting
+dotnet add package NetXLCsv
+```
+
+Or install only what you need:
+
+```bash
+dotnet add package NetXLCsv.Core
+dotnet add package NetXLCsv.DataFrame
+dotnet add package NetXLCsv.Excel
+dotnet add package NetXLCsv.Csv
+dotnet add package NetXLCsv.Streaming
+dotnet add package NetXLCsv.Formatting
 ```
 
 ---
@@ -43,7 +50,7 @@ dotnet add package NetExcel.Formatting
 ### Create a DataFrame
 
 ```csharp
-using NetExcel.DataFrame;
+using NetXLCsv.DataFrame;
 
 // From a strongly-typed list (reflection-based, convenient)
 var df = DataFrame.FromList(new[]
@@ -53,7 +60,7 @@ var df = DataFrame.FromList(new[]
     new { Name = "Carol", Age = 35, Revenue = 130_000m }
 });
 
-Console.WriteLine(df.RowCount);   // 3
+Console.WriteLine(df.RowCount);    // 3
 Console.WriteLine(df.ColumnCount); // 3
 ```
 
@@ -131,9 +138,9 @@ df.Filter(r => (decimal)r["Revenue"]! > 50_000)
 ### Read CSV
 
 ```csharp
-using NetExcel.DataFrame;
+using NetXLCsv.DataFrame;
 
-var df = DataFrame.ReadCsv("data.csv");                 // auto-detects types
+var df = DataFrame.ReadCsv("data.csv");                  // auto-detects types
 var df2 = DataFrame.ReadCsv("euro.csv", delimiter: ';'); // semicolon delimiter
 ```
 
@@ -143,10 +150,10 @@ var df2 = DataFrame.ReadCsv("euro.csv", delimiter: ';'); // semicolon delimiter
 df.ToCsv("output.csv");
 ```
 
-### Stream large CSVs
+### Stream Large CSVs
 
 ```csharp
-using NetExcel.Csv;
+using NetXLCsv.Csv;
 
 var reader = new CsvReader();
 foreach (var row in reader.StreamRows("huge.csv", skipHeader: true))
@@ -163,7 +170,7 @@ foreach (var row in reader.StreamRows("huge.csv", skipHeader: true))
 ### Read Excel
 
 ```csharp
-using NetExcel.DataFrame;
+using NetXLCsv.DataFrame;
 
 var df = DataFrame.ReadExcel("sales.xlsx");
 var df2 = DataFrame.ReadExcel("report.xlsx", sheetName: "Q4");
@@ -180,7 +187,7 @@ df.Filter(r => (decimal)r["Revenue"]! > 10_000)
 ### Workbook API (openpyxl-style)
 
 ```csharp
-using NetExcel.Excel;
+using NetXLCsv.Excel;
 
 var workbook = ExcelWorkbook.Create();
 
@@ -200,7 +207,7 @@ sheet.SetHeaderStyle(bold: true, backgroundColor: "#4472C4");
 workbook.Save("users.xlsx");
 ```
 
-### Read cell values
+### Read Cell Values
 
 ```csharp
 var wb = ExcelWorkbook.Open("data.xlsx");
@@ -215,7 +222,7 @@ var value = ws.ReadCell(2, 1); // row 2, column 1
 ### Streaming Excel Writer
 
 ```csharp
-using NetExcel.Streaming;
+using NetXLCsv.Streaming;
 
 using var writer = StreamingExcelWriter.Create("bigdata.xlsx");
 
@@ -246,8 +253,8 @@ foreach (var item in dataSource)
 ## Formatting & Styling
 
 ```csharp
-using NetExcel.Formatting;
-using NetExcel.Excel;
+using NetXLCsv.Formatting;
+using NetXLCsv.Excel;
 
 var wb = ExcelWorkbook.Create();
 var ws = (ExcelWorksheet)wb.AddWorksheet("Report");
@@ -282,16 +289,16 @@ wb.Save("styled.xlsx");
 
 ## SOLID Architecture
 
-NetExcel is built on strict SOLID principles:
+NetXLCsv is built on strict SOLID principles:
 
 ```
-IDataFrame         ←  NetDataFrame       (NetExcel.DataFrame)
-IWorkbook          ←  ExcelWorkbook      (NetExcel.Excel)
-IWorksheet         ←  ExcelWorksheet     (NetExcel.Excel)
-IExcelReader       ←  ExcelReader        (NetExcel.Excel)
-IExcelWriter       ←  ExcelWriter        (NetExcel.Excel)
-ICsvReader         ←  CsvReader          (NetExcel.Csv)
-ICsvWriter         ←  CsvWriter          (NetExcel.Csv)
+IDataFrame         ←  NetDataFrame       (NetXLCsv.DataFrame)
+IWorkbook          ←  ExcelWorkbook      (NetXLCsv.Excel)
+IWorksheet         ←  ExcelWorksheet     (NetXLCsv.Excel)
+IExcelReader       ←  ExcelReader        (NetXLCsv.Excel)
+IExcelWriter       ←  ExcelWriter        (NetXLCsv.Excel)
+ICsvReader         ←  CsvReader          (NetXLCsv.Csv)
+ICsvWriter         ←  CsvWriter          (NetXLCsv.Csv)
 ```
 
 **Dependency injection friendly:**
@@ -308,14 +315,14 @@ services.AddSingleton<ICsvWriter, CsvWriter>();
 
 ## Performance Notes
 
-| Scenario | NetExcel | ClosedXML | EPPlus |
+| Scenario | NetXLCsv | ClosedXML | EPPlus |
 |---|---|---|---|
-| Write 100k rows | ~0.8s | ~4.2s | ~2.1s |
-| Write 1M rows (streaming) | ~7s | OOM | ~18s |
+| Write 100k rows | ~0.5s | ~4.2s | ~0.7s |
+| Write 1M rows (streaming) | ~7s | OOM | ~7.7s |
 | Memory (1M rows) | ~40 MB | >2 GB | ~600 MB |
 | Read 100k rows | ~0.5s | ~1.8s | ~1.1s |
 
-*Benchmarks run on .NET 10, Release mode, Apple M2. Results vary by machine.*
+*Benchmarks run on .NET 10, Release mode, Windows 11 x64. Results vary by machine.*
 
 Key performance choices:
 - **Columnar storage**: DataFrame stores one array per column, cache-friendly for scans.
@@ -328,7 +335,7 @@ Key performance choices:
 ## Running Benchmarks
 
 ```bash
-cd benchmarks/NetExcel.Benchmarks
+cd benchmarks/NetXLCsv.Benchmarks
 dotnet run -c Release
 ```
 
@@ -337,7 +344,7 @@ dotnet run -c Release
 ## Running Tests
 
 ```bash
-dotnet test tests/NetExcel.Tests --verbosity normal
+dotnet test tests/NetXLCsv.Tests --verbosity normal
 ```
 
 ---
@@ -345,17 +352,18 @@ dotnet test tests/NetExcel.Tests --verbosity normal
 ## Running the Sample App
 
 ```bash
-dotnet run --project samples/NetExcel.Sample
+dotnet run --project samples/NetXLCsv.Sample
 ```
 
-Output files are written to `samples/NetExcel.Sample/bin/Debug/net10.0/output/`.
+Output files are written to `samples/NetXLCsv.Sample/bin/Debug/net10.0/output/`.
 
 ---
 
 ## Building & Publishing to NuGet
 
 ```bash
-# Build all packages
+# Build all packages at once (or individually)
+dotnet pack src/NetXLCsv        -c Release -o ./nupkgs   # umbrella meta-package
 dotnet pack src/NetExcel.Core       -c Release -o ./nupkgs
 dotnet pack src/NetExcel.DataFrame  -c Release -o ./nupkgs
 dotnet pack src/NetExcel.Excel      -c Release -o ./nupkgs
@@ -384,20 +392,21 @@ Update `<Version>` in each `.csproj` before publishing.
 ## Project Structure
 
 ```
-NetExcel.sln
+NetXLCsv.sln
 ├── src/
 │   ├── NetExcel.Core/           # Interfaces, models, utilities
 │   ├── NetExcel.DataFrame/      # Pandas-like DataFrame API
 │   ├── NetExcel.Excel/          # Excel read/write engine
 │   ├── NetExcel.Csv/            # CSV reader/writer
 │   ├── NetExcel.Streaming/      # 1M+ row streaming writers
-│   └── NetExcel.Formatting/     # Cell styles, fonts, borders
+│   ├── NetExcel.Formatting/     # Cell styles, fonts, borders
+│   └── NetExcel/                # Umbrella meta-package (NetXLCsv)
 ├── tests/
-│   └── NetExcel.Tests/          # xUnit + FluentAssertions
+│   └── NetXLCsv.Tests/          # xUnit + FluentAssertions
 ├── benchmarks/
-│   └── NetExcel.Benchmarks/     # BenchmarkDotNet comparisons
+│   └── NetXLCsv.Benchmarks/     # BenchmarkDotNet comparisons
 └── samples/
-    └── NetExcel.Sample/         # End-to-end demo application
+    └── NetXLCsv.Sample/         # End-to-end demo application
 ```
 
 ---

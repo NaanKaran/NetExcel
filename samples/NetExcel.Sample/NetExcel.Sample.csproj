@@ -10,7 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- One reference to the NetXLCsv umbrella package pulls in everything -->
+    <ProjectReference Include="..\..\benchmarks\NetExcel.Benchmarks\NetExcel.Benchmarks.csproj" />
+    <ProjectReference Include="..\..\src\NetExcel.Core\NetExcel.Core.csproj" />
+    <ProjectReference Include="..\..\src\NetExcel.Csv\NetExcel.Csv.csproj" />
+    <ProjectReference Include="..\..\src\NetExcel.DataFrame\NetExcel.DataFrame.csproj" />
+    <ProjectReference Include="..\..\src\NetExcel.Excel\NetExcel.Excel.csproj" />
+    <ProjectReference Include="..\..\src\NetExcel.Formatting\NetExcel.Formatting.csproj" />
+    <ProjectReference Include="..\..\src\NetExcel.Streaming\NetExcel.Streaming.csproj" />
     <ProjectReference Include="..\..\src\NetExcel\NetExcel.csproj" />
   </ItemGroup>
 
