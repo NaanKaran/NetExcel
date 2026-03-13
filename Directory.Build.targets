@@ -1,0 +1,13 @@
+<Project>
+  <!--
+    Include icon.png from the repo root in every NuGet package.
+    The Condition guards against projects that live outside the repo root
+    (e.g. samples, benchmarks) where the icon might not exist.
+  -->
+  <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)icon.png')">
+    <None Include="$(MSBuildThisFileDirectory)icon.png"
+          Pack="true"
+          PackagePath="\"
+          Visible="false" />
+  </ItemGroup>
+</Project>

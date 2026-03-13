@@ -22,6 +22,9 @@
     <PackageTags>excel;csv;dataframe;pandas;spreadsheet;openxml</PackageTags>
     <PackageProjectUrl>https://github.com/netxlcsv/netxlcsv</PackageProjectUrl>
 
+    <!-- NuGet package icon (128x128 PNG at repo root) -->
+    <PackageIcon>icon.png</PackageIcon>
+
     <!-- Symbol packages for better debugging experience -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
